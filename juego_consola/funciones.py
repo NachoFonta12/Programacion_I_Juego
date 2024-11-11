@@ -15,8 +15,33 @@ def generar_lista_diccionario(path):
     return lista_diccionarios
 
 def mezclar_barajas(baraja: list)->list:
-    baraja = random.shuffle(baraja)
+    #baraja = random.shuffle(baraja)
+    for i in range(len(baraja)):
+        indice_mezcla = random.randint(0, len(baraja)-1)
+        while indice_mezcla == i:
+            indice_mezcla = random.randint(0, len(baraja)-1)
+        temporal = baraja[i]
+        baraja[i] = baraja[indice_mezcla]
+        baraja[indice_mezcla] = temporal
     return baraja
+
+def repartir_mazo(mazo: list)->list:
+    mazo_jugador_uno = []
+    mazo_jugador_dos = []
+    #leer_lista(mazo)
+    #print("-" * 70)
+    for i in range(len(mazo) // 2):
+        carta_uno = mazo.pop(0)
+        carta_dos = mazo.pop(0)
+        mazo_jugador_uno.append(carta_uno)
+        mazo_jugador_dos.append(carta_dos)
+    #leer_lista(mazo_jugador_uno)
+    #print("-" * 70)
+    #leer_lista(mazo_jugador_dos)
+    #print("-" * 70)
+    #print(len(mazo_jugador_uno))
+    #print(len(mazo_jugador_dos))
+    return mazo_jugador_uno, mazo_jugador_dos
 
 def generar_elementos(elementos:dict)->dict:
     for clave in elementos:
