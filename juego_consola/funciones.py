@@ -49,18 +49,12 @@ def generar_elementos(elementos:dict)->dict:
     return elementos
 
 def asignar_nombres()->list:
-    lista_jugadores = []
-    for i in range(2):
-        jugador = str(input("Ingrese su nombre: "))
-        lista_jugadores.append(jugador)
-    return lista_jugadores
+    return [input("Ingrese su nombre: ") for _ in range(2)]
 
 def sortear_atributo(lista: list)->str:
-    diccionario = lista[0]
-    atributo = random.choice(list(diccionario.keys()))
-    while atributo == "nombre":
-        atributo = random.choice(list(diccionario.keys()))
-    return atributo
+    atributos = list(lista[0].keys())
+    atributos.remove("nombre")
+    return random.choice(atributos)
 
 def leer_lista(lista: list):
     for i in range(len(lista)):
