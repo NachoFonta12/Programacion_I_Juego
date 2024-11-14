@@ -91,3 +91,15 @@ def comparar_cartas(lista1: list, lista2: list, atributo: str):
     print("-" * 100)
     #leer_lista(lista2)
     print(len(lista2))
+
+def determinar_ganador(rondas, mazo_jugador_uno, mazo_jugador_dos):
+    if len(mazo_jugador_uno) == 0:
+        return 2
+    elif len(mazo_jugador_dos) == 0:
+        return 1
+    elif rondas >= 250:
+        if len(mazo_jugador_uno) > len(mazo_jugador_dos):
+            return 1
+        elif len(mazo_jugador_uno) < len(mazo_jugador_dos):
+            return 2
+    else: return None
