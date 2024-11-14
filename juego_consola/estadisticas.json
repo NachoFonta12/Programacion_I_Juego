@@ -1,24 +1,5 @@
 {
-    "estadisticas": [
-        {
-            "nombre": "pepe",
-            "puntaje": 25,
-            "fecha": "2024-11-14"
-        },
-        {
-            "nombre": "sebastian",
-            "puntaje": 50,
-            "fecha": "2024-11-14"
-        },
-        {
-            "nombre": "agustina",
-            "puntaje": 60,
-            "fecha": "2024-11-14"
-        },
-        {
-            "nombre": "florencia",
-            "puntaje": 55,
-            "fecha": "2024-11-14"
-        }
-    ]
+    "nombre": "Tino",
+    "puntaje": 260,
+    "fecha": "2024-11-14"
 }
