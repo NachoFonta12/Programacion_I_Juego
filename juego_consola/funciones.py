@@ -70,32 +70,21 @@ def leer_lista(lista: list):
     for i in range(len(lista)):
         print(lista[i])
 
-def comparar_cartas(lista1: list, lista2: list, atributo: str):
-    ganador = False
-    carta_jugador_uno = lista1.pop(0)
-    carta_jugador_dos = lista2.pop(0)
-    print(carta_jugador_uno[atributo])
-    print(carta_jugador_dos[atributo])
+def comparar_cartas(mazo_jugador_uno: list, mazo_jugador_dos: list, atributo: str)->None|bool:
+    #True: gano la ronda el jugador 1
+    #False: gano la ronda el jugador 2
+    #none: hubo empate en la ronda
+    estado_ronda = None
+
+    carta_jugador_uno = mazo_jugador_uno.pop(0)
+    carta_jugador_dos = mazo_jugador_dos.pop(0)
+
     if carta_jugador_uno[atributo] > carta_jugador_dos[atributo]:
-        lista1.append(carta_jugador_dos)
-        lista1.append(carta_jugador_uno)
-        ganador = True
+        estado_ronda = True
     elif carta_jugador_uno[atributo] < carta_jugador_dos[atributo]:
-        lista2.append(carta_jugador_dos)
-        lista2.append(carta_jugador_uno)
-        ganador = True
-    else:
-        while ganador == False:
-                carta_jugador_uno = lista1.pop(0)
-                carta_jugador_dos = lista2.pop(0)
-                if carta_jugador_uno[atributo] > carta_jugador_dos[atributo]:
-                    lista1.append(carta_jugador_dos)
-                    lista2.append(carta_jugador_uno)
-                    ganador = True
-                elif carta_jugador_uno[atributo] < carta_jugador_dos[atributo]:
-                    lista2.append(carta_jugador_dos)
-                    lista2.append(carta_jugador_uno)
-                    ganador = True
+        estado_ronda = False
+    
+    return estado_ronda
     #leer_lista(lista1)
     print(len(lista1))
     print("-" * 100)
