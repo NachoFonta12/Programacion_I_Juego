@@ -24,7 +24,7 @@ def parsear_csv(path:str)->list:
 
     return lista_diccionarios
 
-def mezclar_barajas(baraja: list)->list:
+def mezclar_baraja(baraja: list)->list:
     #baraja = random.shuffle(baraja)
     for i in range(len(baraja)):
         indice_mezcla = random.randint(0, len(baraja)-1)
@@ -35,23 +35,12 @@ def mezclar_barajas(baraja: list)->list:
         baraja[indice_mezcla] = temporal
     return baraja
 
-def repartir_mazo(mazo: list)->list:
-    mazo_jugador_uno = []
-    mazo_jugador_dos = []
-    #leer_lista(mazo)
-    #print("-" * 70)
-    for i in range(len(mazo) // 2):
-        carta_uno = mazo.pop(0)
-        carta_dos = mazo.pop(0)
-        mazo_jugador_uno.append(carta_uno)
-        mazo_jugador_dos.append(carta_dos)
-    #leer_lista(mazo_jugador_uno)
-    #print("-" * 70)
-    #leer_lista(mazo_jugador_dos)
-    #print("-" * 70)
-    #print(len(mazo_jugador_uno))
-    #print(len(mazo_jugador_dos))
-    return mazo_jugador_uno, mazo_jugador_dos
+def repartir_mazo(mazo: list, cantidad_cartas)->list:
+    mazo_jugador = []
+    for i in range(cantidad_cartas):
+        carta = mazo.pop(0)
+        mazo_jugador.append(carta)
+    return mazo_jugador
 
 def generar_elementos(elementos:dict)->dict:
     for clave in elementos:
@@ -76,8 +65,8 @@ def comparar_cartas(mazo_jugador_uno: list, mazo_jugador_dos: list, atributo: st
     #none: hubo empate en la ronda
     estado_ronda = None
 
-    carta_jugador_uno = mazo_jugador_uno.pop(0)
-    carta_jugador_dos = mazo_jugador_dos.pop(0)
+    carta_jugador_uno = mazo_jugador_uno[0]
+    carta_jugador_dos = mazo_jugador_dos[0]
 
     if carta_jugador_uno[atributo] > carta_jugador_dos[atributo]:
         estado_ronda = True
@@ -85,11 +74,6 @@ def comparar_cartas(mazo_jugador_uno: list, mazo_jugador_dos: list, atributo: st
         estado_ronda = False
     
     return estado_ronda
-    #leer_lista(lista1)
-    print(len(lista1))
-    print("-" * 100)
-    #leer_lista(lista2)
-    print(len(lista2))
 
 def llevar_cartas_mesa(mazo_mesa: list, mazo_jugador_uno: list, mazo_jugador_dos)->list:
     carta_jugador_uno = mazo_jugador_uno.pop(0)
@@ -98,12 +82,12 @@ def llevar_cartas_mesa(mazo_mesa: list, mazo_jugador_uno: list, mazo_jugador_dos
     mazo_mesa.append(mazo_jugador_dos)
     return mazo_mesa
 
-def determinar_ganador(rondas, mazo_jugador_uno, mazo_jugador_dos):
+def determinar_ganador(rondas, mazo_jugador_uno, mazo_jugador_dos, maximo_rondas_posible: list = 250):
     if len(mazo_jugador_uno) == 0:
         return 2
     elif len(mazo_jugador_dos) == 0:
         return 1
-    elif rondas >= 250:
+    elif rondas >= maximo_rondas_posible:
         if len(mazo_jugador_uno) > len(mazo_jugador_dos):
             return 1
         elif len(mazo_jugador_uno) < len(mazo_jugador_dos):
@@ -113,7 +97,6 @@ def determinar_ganador(rondas, mazo_jugador_uno, mazo_jugador_dos):
 def mostrar_lista(lista: list):
     for pokemon in lista:
         print(f"{pokemon["nombre"]:10} - {pokemon["velocidad"]:3} - {pokemon["fuerza"]:3} - {pokemon["elemento"]:15} - {pokemon["peso"]:5} - {pokemon["altura"]:4}")
-
 
 def cargar_puntaje_a_json(path:str,datos:dict):
 
