@@ -1,17 +1,27 @@
 import random
-def generar_lista_diccionario(path):
+import re
+import json
+from datetime import date
+def parsear_csv(path:str)->list:
+
     with open(path,"r") as archivo_cartas:
+
+        archivo_cartas.readline()
+
         lista_diccionarios = []
         for linea in archivo_cartas:
+
             diccionario_carta = {}
-            linea = linea.split(",")
-            diccionario_carta["nombre"] = linea[0]
-            diccionario_carta["velocidad"] = linea[1]
-            diccionario_carta["fuerza"] = linea[2]
-            diccionario_carta["elemento"] = linea[3]
-            diccionario_carta["peso"] = linea[4]
-            diccionario_carta["altura"] = linea[5]
+            registro = re.split(",|\n",linea)
+            diccionario_carta["nombre"] = registro[0]
+            diccionario_carta["velocidad"] = registro[1]
+            diccionario_carta["fuerza"] = registro[2]
+            diccionario_carta["elemento"] = registro[3]
+            diccionario_carta["peso"] = registro[4]
+            diccionario_carta["altura"] = registro[5]
+
             lista_diccionarios.append(diccionario_carta)
+
     return lista_diccionarios
 
 def mezclar_barajas(baraja: list)->list:
@@ -103,3 +113,24 @@ def determinar_ganador(rondas, mazo_jugador_uno, mazo_jugador_dos):
         elif len(mazo_jugador_uno) < len(mazo_jugador_dos):
             return 2
     else: return None
+
+def mostrar_lista(lista: list):
+    for pokemon in lista:
+        print(f"{pokemon["nombre"]:10} - {pokemon["velocidad"]:3} - {pokemon["fuerza"]:3} - {pokemon["elemento"]:15} - {pokemon["peso"]:5} - {pokemon["altura"]:4}")
+
+
+def cargar_puntaje_a_json(path:str,datos:dict):
+
+    with open(path,"w") as archivo_estadisticas:
+        json.dump(datos,archivo_estadisticas,indent=4)
+
+def leer_puntaje_json(path:str)->dict:
+
+    with open(path,"r") as archivo_estadisticas:
+        puntajes = json.load(archivo_estadisticas)
+        
+    return puntajes
+
+def mostrar_estadisticas(puntajes:dict):
+    for dato in puntajes["estadisticas"]:
+        print(f"{dato["nombre"]:10} - {dato["puntaje"]:4} - {dato["fecha"]:12}")
