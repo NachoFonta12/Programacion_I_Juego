@@ -102,6 +102,13 @@ def comparar_cartas(lista1: list, lista2: list, atributo: str):
     #leer_lista(lista2)
     print(len(lista2))
 
+def llevar_cartas_mesa(mazo_mesa: list, mazo_jugador_uno: list, mazo_jugador_dos)->list:
+    carta_jugador_uno = mazo_jugador_uno.pop(0)
+    carta_jugador_dos = mazo_jugador_dos.pop(0)
+    mazo_mesa.append(carta_jugador_uno)
+    mazo_mesa.append(mazo_jugador_dos)
+    return mazo_mesa
+
 def determinar_ganador(rondas, mazo_jugador_uno, mazo_jugador_dos):
     if len(mazo_jugador_uno) == 0:
         return 2
